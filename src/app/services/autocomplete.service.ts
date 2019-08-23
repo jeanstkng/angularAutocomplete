@@ -9,45 +9,15 @@ import { Observable } from 'rxjs';
 })
 export class AutocompleteService {
 
-  schools = [];
-  filteredSchool = [];
-
 
   constructor( private firestore: AngularFirestore ) {
    }
 
-   public loadSchools() {
+  public loadSchools() {
 
-    return this.firestore.collection('Schools').snapshotChanges();
+  return this.firestore.collection('Schools').snapshotChanges();
 
-   }
+  }
 
-  /*  fetchSchools( keyword: string )  {
-    if (this.schools.length === 0) {
-      this.loadSchools().then( () => {
-       this.lookSchool(keyword);
-      });
-    } else {
-     this.lookSchool(keyword);
-    }
-  } */
-
-  private lookSchool( keyword: string ) {
-
-   this.filteredSchool = [];
-
-   keyword = keyword.toLocaleLowerCase();
-
-   this.schools.forEach( school => {
-
-     const titleLower = school.toLocaleLowerCase()
-
-     if ( titleLower.indexOf( keyword ) >= 0 ) {
-       this.filteredSchool.push( school );
-
-     }
-   });
-
- }
 
 }

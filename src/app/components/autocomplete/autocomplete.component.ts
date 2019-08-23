@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AutocompleteService } from 'src/app/services/autocomplete.service';
-
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-autocomplete',
@@ -9,24 +9,53 @@ import { AutocompleteService } from 'src/app/services/autocomplete.service';
 })
 export class AutocompleteComponent implements OnInit {
 
-  public cats = [];
-
+  schoolName;
+  schools = []; 
+  filteredSchool = [];
   constructor( private autocompleteServ: AutocompleteService) { }
 
   ngOnInit() {
 
-    this.autocompleteServ.loadSchools().subscribe((catsSnapshot) => {
-      this.cats = [];
-      catsSnapshot.forEach((catData: any) => {
-        this.cats.push({
-          id: catData.payload.doc.id,
-          data: catData.payload.doc.data()
+    this.autocompleteServ.loadSchools().subscribe((schoolsSnapshot) => {
+      this.schools = [];
+      schoolsSnapshot.forEach((schoolData: any) => {
+        this.schools.push({
+          id: schoolData.payload.doc.id,
+          data: schoolData.payload.doc.data()
         });
       })
+      console.log(this.schools);
     });
-
-    console.log(this.cats);
 
   }
 
+  
+  /* fetchSchools( keyword: string )  {
+    if (this.schools.length === 0) {
+      this.autocompleteServ.loadSchools().subscribe( () => {
+       this.lookSchool(keyword);
+      });
+    } else {
+     this.lookSchool(keyword);
+    }
+  }
+
+  private lookSchool( keyword: string ) {
+
+   this.filteredSchool = [];
+
+   keyword = keyword.toLocaleLowerCase();
+
+   this.schools.forEach( school => {
+
+     const titleLower = school.toLocaleLowerCase()
+
+     if ( titleLower.indexOf( keyword ) >= 0 ) {
+       this.filteredSchool.push( school );
+
+     }
+   }); 
+
+  } 
+ */
 }

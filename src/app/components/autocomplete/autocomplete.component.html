@@ -1,12 +1,15 @@
 <p>autocomplete works!</p>
 
+<style>
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+</style>
 
 <br><br><br>
+ 
+<input [(ngModel)]="schoolName" list="schools">
 
-<input type="text" name="" id="">
-
-
-<div class="" *ngFor="let cat of cats">
-
-    <h3>{{ cat.id }}</h3>
-</div>
+    <datalist *ngIf="schoolName!=null" id="schools">
+        <option *ngFor="let schools of schools" value="{{schools.id}}">
+    </datalist>            
